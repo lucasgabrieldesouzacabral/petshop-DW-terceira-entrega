@@ -115,16 +115,13 @@
         <div class="nav-links">
             <a href="/">🏠 Início</a>
         </div>
-        <a href="/cadastrarVacina" class="btn-new">Registrar Nova Vacina</a>
+        <a href="/vacinas/cadastrar" class="btn-new">Registrar Nova Vacina</a>
 
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Animal</th>
                     <th>Vacina</th>
-                    <th>Data Aplicação</th>
-                    <th>Próxima Dose</th>
                     <th>Aplicador</th>
                     <th>Ações</th>
                 </tr>
@@ -134,10 +131,7 @@
                 {{#each vacinas}}
                 <tr>
                     <td>{{id}}</td>
-                    <td>{{animalNome}}</td>
                     <td>{{tipoVacina}}</td>
-                    <td>{{dataAplicacao}}</td>
-                    <td>{{proximaDose}}</td>
                     <td>{{funcionarioNome}}</td>
                     <td>
                         <a href="/vacinas/{{id}}" class="btn btn-view">Ver</a>

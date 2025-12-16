@@ -22,6 +22,14 @@ const Agendamento = sequelize.define('Agendamento', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    dataAplicacao: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    proximaDose: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
     status: {
         type: DataTypes.STRING,
         allowNull: false,

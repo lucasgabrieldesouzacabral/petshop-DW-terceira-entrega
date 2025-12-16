@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhar Vacina</title>
+  <style>body{font-family:Arial, sans-serif;max-width:700px;margin:40px auto;padding:20px}dt{font-weight:bold}dd{margin-bottom:10px}</style>
+</head>
+<body>
+  <h1>Vacina</h1>
+  <dl>
+    <dt>Tipo de Vacina</dt>
+    <dd>{{vacina.tipoVacina}}</dd>
+
+    <dt>Funcionário Aplicador</dt>
+    <dd>{{#if vacina.funcionario}}{{vacina.funcionario.nome}}{{else}}Não informado{{/if}}</dd>
+
+    <dt>Descrição</dt>
+    <dd>{{vacina.descricao}}</dd>
+  </dl>
+  <a href="/vacinas">Voltar</a>
+  <a href="/vacinas/{{vacina.id}}/editar" style="margin-left:12px">Editar</a>
+</body>
+</html>

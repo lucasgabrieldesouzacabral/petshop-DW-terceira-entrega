@@ -111,6 +111,26 @@
                 <option value="cancelado">Cancelado</option>
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="funcionarioId">Funcionário (Opcional):</label>
+            <select name="funcionarioId" id="funcionarioId">
+                <option value="">Não Informado</option>
+                {{#each funcionarios}}
+                <option value="{{id}}">{{nome}} ({{cargo}})</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="dataAplicacao">Data de Aplicação (Opcional):</label>
+            <input type="date" name="dataAplicacao" id="dataAplicacao">
+        </div>
+
+        <div class="form-group">
+            <label for="proximaDose">Próxima Dose (Opcional):</label>
+            <input type="date" name="proximaDose" id="proximaDose">
+        </div>
         
         <button type="submit">Cadastrar Agendamento</button>
     </form>

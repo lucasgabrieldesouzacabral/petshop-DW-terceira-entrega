@@ -72,22 +72,9 @@
 
     <form action="/vacinas/cadastrar" method="POST">
 
-        <label for="animalId">Animal:</label>
-        <select id="animalId" name="animalId" required>
-            <option value="">Selecione o Animal</option>
-            {{#each animais}}
-            <option value="{{id}}">{{nome}} (Espécie: {{especie}})</option>
-            {{/each}}
-        </select>
 
         <label for="tipoVacina">Tipo de Vacina (Nome):</label>
         <input type="text" id="tipoVacina" name="tipoVacina" required>
-
-        <label for="dataAplicacao">Data da Aplicação:</label>
-        <input type="date" id="dataAplicacao" name="dataAplicacao" required>
-
-        <label for="proximaDose">Próxima Dose (Opcional):</label>
-        <input type="date" id="proximaDose" name="proximaDose">
 
         <label for="funcionarioId">Funcionário Aplicador (Opcional):</label>
         <select id="funcionarioId" name="funcionarioId">

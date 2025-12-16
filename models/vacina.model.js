@@ -2,13 +2,9 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); 
 
 const Vacina = sequelize.define('Vacina', {
-    descricao: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
     animalId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
     funcionarioId: {
         type: DataTypes.INTEGER,
@@ -18,12 +14,9 @@ const Vacina = sequelize.define('Vacina', {
         type: DataTypes.STRING, 
         allowNull: false,
     },
-    dataAplicacao: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-    proximaDose: {
-        type: DataTypes.DATE,
+    // datas de aplicação agora são registradas nos agendamentos
+    descricao: {
+        type: DataTypes.STRING,
         allowNull: true,
     }
 });

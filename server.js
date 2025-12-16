@@ -52,8 +52,8 @@ app.engine('handlebars', exphbs.engine({
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({extended: true}));
 
-db.sync({force: false}).then(() => {
-    console.log('Banco de dados sincronizado');
+db.sync({alter: true}).then(() => {
+	console.log('Banco de dados sincronizado (alter)');
 });
 
 
@@ -327,9 +327,11 @@ app.post('/agendamentos', async (req, res) => {
             animalId: parseInt(req.body.animalId),
             funcionarioId: req.body.funcionarioId ? parseInt(req.body.funcionarioId) : null,
             tipoVacina: req.body.tipoVacina,
-            data: req.body.data,
-            horario: req.body.horario,
-            status: req.body.status
+			data: req.body.data,
+			horario: req.body.horario,
+			status: req.body.status,
+			dataAplicacao: req.body.dataAplicacao || null,
+			proximaDose: req.body.proximaDose || null
         });
         res.redirect('/agendamentos');
     } catch (error) {
@@ -819,10 +821,10 @@ app.get('/vacinas/cadastrar', async (req, res) => {
     try {
         let animais = await Animal.findAll();
         let funcionarios = await Funcionario.findAll();
-        res.render('cadastrarVacinas', { 
-            animais: animais.map(a => a.dataValues), 
-            funcionarios: funcionarios.map(f => f.dataValues) 
-        });
+	res.render('cadastrarVacina', { 
+			animais: animais.map(a => a.dataValues), 
+			funcionarios: funcionarios.map(f => f.dataValues) 
+		});
     } catch (error) {
         console.log(error);
         res.status(500).send('Erro ao carregar dados para cadastro de vacina');
@@ -830,21 +832,19 @@ app.get('/vacinas/cadastrar', async (req, res) => {
 });
 
 app.post('/vacinas/cadastrar', async (req, res) => {
-    try {
-        let { animalId, funcionarioId, tipoVacina, dataAplicacao, proximaDose, descricao } = req.body;
-        await Vacina.create({
-            animalId: parseInt(animalId),
-            funcionarioId: funcionarioId ? parseInt(funcionarioId) : null,
-            tipoVacina,
-            dataAplicacao,
-            proximaDose: proximaDose || null,
-            descricao: descricao || null
-        });
-        res.redirect('/vacinas');
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Erro ao cadastrar vacina');
-    }
+	try {
+		let { animalId, funcionarioId, tipoVacina, descricao } = req.body;
+		await Vacina.create({
+			animalId: animalId ? parseInt(animalId) : null,
+			funcionarioId: funcionarioId ? parseInt(funcionarioId) : null,
+			tipoVacina,
+			descricao: descricao || null
+		});
+		res.redirect('/vacinas');
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Erro ao cadastrar vacina');
+	}
 });
 
 
@@ -859,13 +859,13 @@ app.get('/vacinas/:id', async (req, res) => {
         if(!vacina)
             return res.status(404).send('Vacina não encontrada');
         let vacinaData = vacina.get({ plain: true });
-        res.render('detalharVacinas', { 
-            vacina: {
-                ...vacinaData,
-                animal: vacinaData.Animal,
-                funcionario: vacinaData.Funcionario
-            }
-        });
+		res.render('detalharVacina', { 
+			vacina: {
+				...vacinaData,
+				animal: vacinaData.Animal,
+				funcionario: vacinaData.Funcionario
+			}
+		});
     } catch (error) {
         console.log(error);
         res.status(500).send('Erro ao buscar vacina');
@@ -876,14 +876,12 @@ app.get('/vacinas/:id', async (req, res) => {
 app.get('/vacinas/:id/editar', async (req, res) => {
     try {
         let vacina = await Vacina.findByPk(req.params.id);
-        let animais = await Animal.findAll();
-        let funcionarios = await Funcionario.findAll();
-        if(!vacina) return res.status(404).send('Vacina não encontrada.');
-        res.render('editarVacina', { 
-            vacina: vacina.dataValues, 
-            animais: animais.map(a => a.dataValues), 
-            funcionarios: funcionarios.map(f => f.dataValues) 
-        });
+		let funcionarios = await Funcionario.findAll();
+		if(!vacina) return res.status(404).send('Vacina não encontrada.');
+		res.render('editarVacina', { 
+			vacina: vacina.dataValues, 
+			funcionarios: funcionarios.map(f => f.dataValues) 
+		});
     } catch (error) {
         console.log(error);
         res.status(500).send('Erro ao buscar vacina para edição');
@@ -892,18 +890,16 @@ app.get('/vacinas/:id/editar', async (req, res) => {
 
 
 app.post('/vacinas/:id', async (req, res) => {
-    const { animalId, funcionarioId, tipoVacina, dataAplicacao, proximaDose, descricao } = req.body;
+	const { animalId, funcionarioId, tipoVacina, descricao } = req.body;
     try {
         let vacina = await Vacina.findByPk(req.params.id);
         if(!vacina) return res.status(404).send('Vacina não encontrada.');
 
         await vacina.update({
-            animalId: parseInt(animalId),
-            funcionarioId: funcionarioId ? parseInt(funcionarioId) : null,
+			animalId: animalId ? parseInt(animalId) : null,
+			funcionarioId: funcionarioId ? parseInt(funcionarioId) : null,
             tipoVacina,
-            dataAplicacao,
-            proximaDose: proximaDose || null,
-            descricao: descricao || null
+			descricao: descricao || null
         });
         res.redirect('/vacinas');
     } catch (error) {
