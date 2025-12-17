@@ -92,13 +92,12 @@
         <div class="form-group">
             <label for="tipoVacina">Tipo de Vacina:</label>
             <select name="tipoVacina" id="tipoVacina" required>
+                {{#if vacinas}}
                 <option value="">Selecione o tipo de vacina</option>
-                <option value="V8" {{#if (eq agendamento.tipoVacina "V8")}}selected{{/if}}>V8</option>
-                <option value="V10" {{#if (eq agendamento.tipoVacina "V10")}}selected{{/if}}>V10</option>
-                <option value="Antirrábica" {{#if (eq agendamento.tipoVacina "Antirrábica")}}selected{{/if}}>Antirrábica</option>
-                <option value="Gripe" {{#if (eq agendamento.tipoVacina "Gripe")}}selected{{/if}}>Gripe</option>
-                <option value="Quádrupla" {{#if (eq agendamento.tipoVacina "Quádrupla")}}selected{{/if}}>Quádrupla</option>
-                <option value="Outra" {{#if (eq agendamento.tipoVacina "Outra")}}selected{{/if}}>Outra</option>
+                {{#each vacinas}}
+                <option value="{{tipoVacina}}" {{#if (eq tipoVacina ../agendamento.tipoVacina)}}selected{{/if}}>{{tipoVacina}}</option>
+                {{/each}}
+                {{/if}}
             </select>
         </div>
         
