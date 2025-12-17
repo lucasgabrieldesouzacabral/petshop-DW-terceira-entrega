@@ -14,7 +14,6 @@ const Vacina = sequelize.define('Vacina', {
         type: DataTypes.STRING, 
         allowNull: false,
     },
-    // datas de aplicação agora são registradas nos agendamentos
     descricao: {
         type: DataTypes.STRING,
         allowNull: true,

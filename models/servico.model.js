@@ -37,5 +37,6 @@ const Servico = sequelize.define('Servico', {
     }
 });
 
+
 module.exports = Servico;
 
