@@ -3,7 +3,7 @@ Lucas Gabriel de Souza Cabral
 Isaac Pessoa Dias Gomes
 Lisandro Luan da Silva Chagas
 
-Problema: Falta de sistemas para auxiliar no agendamento da vacinação de gatos e cachorros. 
+Falta de sistemas para auxiliar no agendamento da vacinação de gatos e cachorros. 
 Solução: criação de um site de um petshop com o processo de agendamento da vacinação dos gatos e cachorros, tornando-o mais organizado
 
 Requisitos: 
