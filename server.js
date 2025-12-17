@@ -52,8 +52,10 @@ app.engine('handlebars', exphbs.engine({
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({extended: true}));
 
-db.sync({alter: true}).then(() => {
-	console.log('Banco de dados sincronizado (alter)');
+db.sync({alter: false, force: false}).then(() => {
+	console.log('Banco de dados sincronizado');
+}).catch(err => {
+	console.error('Erro ao sincronizar banco:', err);
 });
 
 
