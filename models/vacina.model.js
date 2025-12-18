@@ -2,10 +2,6 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database'); 
 
 const Vacina = sequelize.define('Vacina', {
-    animalId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
     funcionarioId: {
         type: DataTypes.INTEGER,
         allowNull: true,
